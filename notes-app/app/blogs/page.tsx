@@ -1,40 +1,31 @@
+import { getBlogs } from "../services/blogs"
 
-const blog = () => {
+const Blogs = () => {
+    const blogs = getBlogs()
     return (
         <div>
             <h2>Blogs</h2>
-            <div>
-                <label>
-                    id:
-                    <input type="text" name="id" required />
-                </label>
-            </div>
-            <div>
-            <label>
-                title:
-                <input type="text" name="title" required />
-            </label>
-            </div>
-            <div>
-            <label>
-                author:
-                <input type="text" name="author" required />
-            </label>
-            <div>
-            <label>
-                url:
-                <input type="text" name="url" required />
-            </label>
-            </div>
-            <div>
-            <label>
-                likes:
-                <input type="text" name="title" required />
-            </label>
-            </div>
-            </div>
+            <ul>
+                {blogs.map(blog => (
+                    <li key={blog.id}>
+                        <ul>
+                            {blog.title}
+                        </ul>
+                        <ul>
+                            {blog.author}
+                        </ul>
+                        <ul>
+                            {blog.url}
+                        </ul>
+                        <ul>
+                            {blog.likes}
+                        </ul>
+                    </li>
+                ))}
+            </ul>
+
         </div>
     )
 }
 
-export default blog
+export default Blogs
