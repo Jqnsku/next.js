@@ -8,18 +8,18 @@ const newBlog = () => {
 
                 <div>
                     <label>
-                        title:
+                        Title:
                         <input type="text" name="title" required />
                     </label>
                 </div>
                 <div>
                     <label>
-                        author:
+                        Author:
                         <input type="text" name="author" required />
                     </label>
                     <div>
                         <label>
-                            url:
+                            URL:
                             <input type="text" name="url" required />
                         </label>
                     </div>

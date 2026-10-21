@@ -20,6 +20,7 @@ const Blogs = () => {
                         <ul>
                             {blog.likes}
                         </ul>
+                        <br></br>
                     </li>
                 ))}
             </ul>
