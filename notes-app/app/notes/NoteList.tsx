@@ -18,18 +18,24 @@ const NoteList = ({ notes }: { notes: Note[] }) => {
 
     return (
         <div>
-            <button onClick={() => setShowImportant(!showImportant)}>
-                {showImportant ? "Show all" : "Show important"}
-            </button>
+            <h2>Notes</h2>
+            <div>
+
+                {/* <button onClick={() => setShowImportant(!showImportant)}> */}
+                <Link href={showImportant ? "/notes" : "/notes?important=true"}>
+                    {showImportant ? "Show all" : "Show important only"}
+                </Link>
+            </div>
+            {/* </button> */}
             <ul>
-                {notesToShow.map((note) => (
+                {notes.map((note) => (
                     <li key={note.id}>
                         <Link href={`/notes/${note.id}`}>{note.content}</Link>
                         {note.important && <strong> (important) </strong>}
                     </li>
                 ))}
             </ul>
-        </div>
+        </div >
     )
 }
 

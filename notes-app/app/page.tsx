@@ -1,4 +1,4 @@
-import Notes from "./notes/page"
+
 
 const Home = () => {
   console.log('hello next.js')
