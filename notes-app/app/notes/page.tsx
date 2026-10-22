@@ -1,5 +1,5 @@
 import { getNotes } from "../services/notes"
-import { NoteList } from "./NoteList"
+import NoteList  from "./NoteList"
 
 const Notes = async ({
     searchParams,
