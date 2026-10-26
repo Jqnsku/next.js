@@ -23,6 +23,7 @@ const BlogList = ({ blogs }: { blogs: Blog[] }) => {
                             {blog.url}
                             {blog.likes}
                         </Link>
+                        <h2></h2>
                     </li>
                 ))}
             </ul>
