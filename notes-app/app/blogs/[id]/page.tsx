@@ -28,7 +28,7 @@ const blogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                     <p>Likes: {blog.likes}</p>
                 </li>
                 <LikeButton
-                    blogLikes={Number(likes)}
+                  
                     blogId={Number(id)}
                 />
             </ul>
