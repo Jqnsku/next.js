@@ -1,6 +1,8 @@
 import { getNotes } from "../services/notes"
 import NoteList  from "./NoteList"
 
+export const instant = false
+
 const Notes = async ({
     searchParams,
 }: {
@@ -18,7 +20,7 @@ const Notes = async ({
     return (
         <div>
             <h2>Notes</h2>
-            <NoteList notes={notes} />
+            <NoteList notes={notes} showImportant={showImportant} />
         </div>
     )
 }

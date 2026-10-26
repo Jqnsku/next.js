@@ -7,7 +7,7 @@ return (
         <form action={createNote}>
             <div>
                 <label>
-                    Content
+                    Content:
                     <input type="text" name="content" required />
                 </label>
             </div>

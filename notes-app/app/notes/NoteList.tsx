@@ -9,8 +9,8 @@ type Note = {
     important: boolean
 }
 
-const NoteList = ({ notes }: { notes: Note[] }) => {
-    const [showImportant, setShowImportant] = useState(false)
+const NoteList = ({ notes, showImportant }: { notes: Note[], showImportant: boolean }) => {
+    // const [showImportant, setShowImportant] = useState(false)
 
     const notesToShow = showImportant
         ? notes.filter((note) => note.important)
@@ -18,7 +18,7 @@ const NoteList = ({ notes }: { notes: Note[] }) => {
 
     return (
         <div>
-            <h2>Notes</h2>
+            {/* <h2>Notes</h2> */}
             <div>
 
                 {/* <button onClick={() => setShowImportant(!showImportant)}> */}
