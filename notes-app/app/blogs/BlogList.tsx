@@ -8,12 +8,12 @@ type Blog = {
     likes: number
 }
 
-const BlogList = ({ blogs }: { blogs: Blog[] }) => {
+const BlogList = ({ filteredBlogs }: { filteredBlogs: Blog[] }) => {
 
     return (
         <div>
             <ul>
-                {blogs.map((blog) => (
+                {filteredBlogs.map((blog) => (
                     <li key={blog.id}>
 
                         <Link href={`/blogs/${blog.id}`}>

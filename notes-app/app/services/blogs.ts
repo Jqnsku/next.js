@@ -5,9 +5,21 @@ const blogs = [
 let nextId = 2
 
 
+export const getBlogs = async ({searchParams}: {searchParams: Promise<{ q: string }> }) => {
+    const { q } = await searchParams
+    
+    blogs.filter(blog => blog.title.includes(q))
 
-export const getBlogs = () => {
-    return blogs
+    let filteredBlogs = blogs
+
+    if (q) {
+        filteredBlogs = blogs.filter(blog => blog.title.includes(q))
+    }
+
+    blogs.sort((a, b) => {
+        return b.likes - a.likes
+    })
+    return filteredBlogs
 }
 
 export const getLikesById = (id: number) => {
