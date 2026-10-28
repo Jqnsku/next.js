@@ -2,6 +2,8 @@
 import { getBlogs } from "../services/blogs"
 import BlogList from "./BlogList"
 
+export const instant = false
+
 const Blogs = async ({
     searchParams,
 }: {
