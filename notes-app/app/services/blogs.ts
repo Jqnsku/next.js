@@ -13,7 +13,7 @@ export const getBlogs = async ({searchParams}: {searchParams: Promise<{ q: strin
     let filteredBlogs = blogs
 
     if (q) {
-        filteredBlogs = blogs.filter(blog => blog.title.includes(q))
+        filteredBlogs = blogs.filter(blog => blog.title.toLowerCase().includes(q.toLowerCase()))
     }
 
     blogs.sort((a, b) => {
