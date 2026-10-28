@@ -5,11 +5,13 @@ import { incrementLike } from "../../services/blogs"
 import LikeButton from "../likes/LikeButton"
 
 
+export const instant = false
 
 
 const blogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params
     const blogId = (Number(id))
+
 
     const likes = await getLikesById(Number(id))
     const blog = getBlogById(blogId)
