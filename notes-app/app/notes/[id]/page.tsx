@@ -6,7 +6,7 @@ export const instant = false
 
 const notePage = async ({ params }: { params: Promise<{ id: string}> }) => {
     const { id } = await params
-    const note = getNoteById(Number(id))
+    const note = await getNoteById(Number(id))
 
     if (!note) {
         notFound()

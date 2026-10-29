@@ -1,23 +1,22 @@
 import { getNotes } from "../services/notes"
-import NoteList  from "./NoteList"
+import NoteList from "./NoteList"
 
 export const instant = false
 
 const Notes = async ({
     searchParams,
 }: {
-    searchParams: Promise<{important?: string }>
+    searchParams: Promise<{ important?: string }>
 }) => {
     const { important } = await searchParams
     const showImportant = important === "true"
+    const notes = await getNotes(showImportant)
+    // const notes = showImportant
+    //     ? allNotes.filter((note) => note.important)
+    //     : allNotes
+    //     // const notes = getNotes()
 
-    const allNotes = getNotes()
-    const notes = showImportant
-    ? allNotes.filter((note) => note.important)
-    :allNotes
-
-    // const notes = getNotes()
-    return (
+        return (
         <div>
             <h2>Notes</h2>
             <NoteList notes={notes} showImportant={showImportant} />
