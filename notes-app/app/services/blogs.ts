@@ -1,4 +1,4 @@
-import { eq, sql, ilike } from "drizzle-orm"
+import { eq, sql, ilike, desc } from "drizzle-orm"
 import { db } from "../db"
 import { blogs } from "../db/schema"
 
@@ -12,13 +12,15 @@ let nextId = 2
 export const getBlogs = async (q: string) => {
     if (q) {
         return await db
-        .select()
-        .from(blogs)
-        .where(ilike(
-            blogs.title, `%${q}%`
-        ))
+            .select()
+            .from(blogs)
+            .where(ilike(
+                blogs.title, `%${q}%`
+            ))
+            .orderBy(desc(blogs.likes))
     }
     return db.query.blogs.findMany({
+        orderBy: desc(blogs.likes)
     })
 }
 
