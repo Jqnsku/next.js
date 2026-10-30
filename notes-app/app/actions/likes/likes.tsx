@@ -9,6 +9,7 @@ export async function likeBlog(formData: FormData) {
     incrementLike(id)
 
     revalidatePath(`/blogs/${id}`)
+    revalidatePath(`/blogs}`)
 
 // export async function likeBlog(id: number) {
 //     const updatedLikes = incrementLike(id)

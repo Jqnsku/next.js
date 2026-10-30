@@ -1,53 +1,86 @@
-const blogs = [
+import { eq, sql } from "drizzle-orm"
+import { db } from "../db"
+import { blogs } from "../db/schema"
+
+const localblogs = [
     { id: 1, title: "Jqnsku's Blog", author: "Jqnsku", url: "https://github.com/Jqnsku/next.js", likes: 31 }
 ]
 
 let nextId = 2
 
 
-export const getBlogs = async ({searchParams}: {searchParams: Promise<{ q: string }> }) => {
-    const { q } = await searchParams
-    
-    blogs.filter(blog => blog.title.includes(q))
+export const getBlogs = async() => {
+    return await db 
+    .select()
+    .from(blogs)
+}
+// ({ searchParams }: { searchParams: Promise<{ q: string }> }) => {
+//     const { q } = await searchParams
 
-    let filteredBlogs = blogs
+//     blogs.filter(blog => blog.title.includes(q))
 
-    if (q) {
-        filteredBlogs = blogs.filter(blog => blog.title.toLowerCase().includes(q.toLowerCase()))
+//     let filteredBlogs = blogs
+
+//     if (q) {
+//         filteredBlogs = blogs.filter(blog => blog.title.toLowerCase().includes(q.toLowerCase()))
+//     }
+
+//     blogs.sort((a, b) => {
+//         return b.likes - a.likes
+//     })
+//     return filteredBlogs
+
+export const getLikesById = async (id: number) => {
+    const result = await db
+        .select({
+            likes: blogs.likes,
+        })
+        .from(blogs)
+        .where(eq(blogs.id, id))
+
+        const blog = result[0]
+
+        if (blog) return blog.likes
+        
+    // const blog = getBlogById(id)
+
+    // if (!blog) {
+    //     return 0
+    // }
+
+    return 0
+}
+
+export const incrementLike = async (id: number) => {
+    // const blog = await getBlogById(id)
+
+    // if (!blog) {
+        await db
+            .update(blogs)
+            .set({ likes: sql`likes + 1` })
+            .where(eq(blogs.id, id))
     }
+    // return 0
 
-    blogs.sort((a, b) => {
-        return b.likes - a.likes
+    // blog.likes += 1
+
+    // return blog.likes
+
+
+export const getBlogById = async (id: number) => {
+    return db.query.blogs.findFirst({
+        where: eq(blogs.id, id)
     })
-    return filteredBlogs
+    // (blog) => blog.id === id)
 }
 
-export const getLikesById = (id: number) => {
-    const blog = blogs.find((blog) => blog.id === id)
-
-    if (!blog) {
-        return 0
-    }
-
-    return blog.likes
+export const addBlog = async (
+    title: string, author: string, url: string, likes: number) => {
+    await db.insert(blogs).values({
+        title,
+        author,
+        url,
+        likes
+    })
 }
-
-export const incrementLike = (id: number) => {
-    const blog = blogs.find((blog) => blog.id === id)
-
-    if (!blog) {
-        return 0
-    }
-
-    blog.likes += 1
-
-    return blog.likes
-}
-
-export const getBlogById = (id: number) => {
-    return blogs.find((blog) => blog.id === id)
-}
-
-export const addBlog = (title: string, author: string, url: string, likes: number) => {
-    blogs.push({ id: nextId++, title, author, url, likes })
-}
+// blogs.push({ id: nextId++, title, author, url, likes })

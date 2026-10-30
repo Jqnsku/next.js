@@ -14,7 +14,7 @@ const blogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
 
     const likes = await getLikesById(Number(id))
-    const blog = getBlogById(blogId)
+    const blog = await getBlogById(blogId)
 
     if (!blog) {
         notFound()
@@ -31,7 +31,7 @@ const blogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </li>
                 <LikeButton
                   
-                    blogId={Number(id)}
+                    blogId={blog.id}
                 />
             </ul>
         </div>
