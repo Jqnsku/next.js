@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm"
+import { eq, sql, ilike } from "drizzle-orm"
 import { db } from "../db"
 import { blogs } from "../db/schema"
 
@@ -9,26 +9,33 @@ const localblogs = [
 let nextId = 2
 
 
-export const getBlogs = async() => {
-    return await db 
-    .select()
-    .from(blogs)
+export const getBlogs = async (q: string) => {
+    if (q) {
+        return await db
+        .select()
+        .from(blogs)
+        .where(ilike(
+            blogs.title, `%${q}%`
+        ))
+    }
+    return db.query.blogs.findMany({
+    })
 }
-// ({ searchParams }: { searchParams: Promise<{ q: string }> }) => {
-//     const { q } = await searchParams
 
-//     blogs.filter(blog => blog.title.includes(q))
 
-//     let filteredBlogs = blogs
+// blogs.filter(blog => blog.title.includes(q))
 
-//     if (q) {
-//         filteredBlogs = blogs.filter(blog => blog.title.toLowerCase().includes(q.toLowerCase()))
-//     }
+//  let filteredBlogs = blogs
 
-//     blogs.sort((a, b) => {
-//         return b.likes - a.likes
-//     })
-//     return filteredBlogs
+//  if (q) {
+//      filteredBlogs = blogs.filter(blog => blog.title.toLowerCase().includes(q.toLowerCase()))
+//  }
+
+//  blogs.sort((a, b) => {
+//      return b.likes - a.likes
+//  })
+//  return filteredBlogs
+// }
 
 export const getLikesById = async (id: number) => {
     const result = await db
@@ -38,10 +45,10 @@ export const getLikesById = async (id: number) => {
         .from(blogs)
         .where(eq(blogs.id, id))
 
-        const blog = result[0]
+    const blog = result[0]
 
-        if (blog) return blog.likes
-        
+    if (blog) return blog.likes
+
     // const blog = getBlogById(id)
 
     // if (!blog) {
@@ -55,16 +62,16 @@ export const incrementLike = async (id: number) => {
     // const blog = await getBlogById(id)
 
     // if (!blog) {
-        await db
-            .update(blogs)
-            .set({ likes: sql`likes + 1` })
-            .where(eq(blogs.id, id))
-    }
-    // return 0
+    await db
+        .update(blogs)
+        .set({ likes: sql`likes + 1` })
+        .where(eq(blogs.id, id))
+}
+// return 0
 
-    // blog.likes += 1
+// blog.likes += 1
 
-    // return blog.likes
+// return blog.likes
 
 
 export const getBlogById = async (id: number) => {

@@ -9,7 +9,8 @@ const Blogs = async ({
 }: {
     searchParams: Promise<{ q: string }>
 }) => {
-    const blogs = await getBlogs()
+    const { q } = await searchParams
+    const blogs = await getBlogs(q)
 
     return (
         <div>
